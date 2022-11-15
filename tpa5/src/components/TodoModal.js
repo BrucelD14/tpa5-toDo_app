@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import styles from "../styles/modules/modal.module.scss";
+import {useDispatch} from 'react-redux';
 import { MdOutlineClose } from "react-icons/md";
 import Button from "./Button";
 
 function TodoModal({ modalOpen, setModalOpen }) {
   const [title, setTitle] = useState("");
   const [status, setStatus] = useState("incomplete");
+  const dispatch = useDispatch()
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (title && status) {
+      dispatch();
+    }
   };
 
   return (
