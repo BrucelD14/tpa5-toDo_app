@@ -3,6 +3,8 @@ import styles from "../styles/modules/modal.module.scss";
 import {useDispatch} from 'react-redux';
 import { MdOutlineClose } from "react-icons/md";
 import Button from "./Button";
+import { addTodo } from "../slices/todoSlice";
+import {v4 as uuid} from 'uuid'
 
 function TodoModal({ modalOpen, setModalOpen }) {
   const [title, setTitle] = useState("");
@@ -12,7 +14,12 @@ function TodoModal({ modalOpen, setModalOpen }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (title && status) {
-      dispatch();
+      dispatch(addTodo({
+        id: uuid(),
+        title,
+        status,
+        time: new Date().toLocaleDateString(),
+      }));
     }
   };
 
