@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import TodoItem from "./TodoItem";
 import styles from "../styles/modules/app.module.scss";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const container = {
   hidden: { opacity: 1 },
@@ -43,13 +43,15 @@ function AppContent() {
       initial="hidden"
       animate="visible"
     >
-      {filteredTodoList && filteredTodoList.length > 0 ? (
-        filteredTodoList.map((todo) => <TodoItem key={todo.id} todo={todo} />)
-      ) : (
-        <motion.p className={styles.emptyText} variants={child}>
-          No Todo Found
-        </motion.p>
-      )}
+      <AnimatePresence>
+        {filteredTodoList && filteredTodoList.length > 0 ? (
+          filteredTodoList.map((todo) => <TodoItem key={todo.id} todo={todo} />)
+        ) : (
+          <motion.p className={styles.emptyText} variants={child}>
+            No Todo Found
+          </motion.p>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
